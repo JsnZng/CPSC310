@@ -1,20 +1,29 @@
 ﻿//model for a park with name, google coord(latlong) and facilities
-//import * as google from ("./Scripts/maps/google.maps.d");
+/// <reference path="./Scripts/maps/google.maps.d.ts"/>
+module park {
+    export class Park {
 
-export class park {
+        /* Fields */
 
-    /* Fields */
+        name: string; // name of the park
+        long: number //latlong location of park
+        lat: number;
+        hasFacilities: boolean; //does the park have facilities?
 
-    name: string; // name of the park
-    latlong: google.maps.LatLng; //latlong location of park
-    hasFacilities: boolean;
 
+        /* Constructors */
+        constructor(name: string, lat : number, long: number, hasFacilities: boolean) {
+            this.name = name;
+            this.lat = lat;
+            this.long = long;
+            this.hasFacilities = hasFacilities;
+        }
 
-    /* Constructors */
-    constructor(name: string, latlong: google.maps.LatLng, hasFacilities: boolean) {
-        this.name = name;
-        this.latlong = latlong;
-        this.hasFacilities = hasFacilities;
+        /* Helpers */
+
+        toString() {
+            return this.name + " " + this.lat.toString() + " " + this.long.toString() + " " + String(this.hasFacilities);
+        }
+
     }
-
 }

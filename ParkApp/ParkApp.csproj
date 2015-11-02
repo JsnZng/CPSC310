@@ -23,6 +23,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app.css" />
+    <Content Include="tests.html" />
     <Content Include="index.html" />
     <Content Include="web.config" />
   </ItemGroup>
@@ -31,7 +32,7 @@
     <TypeScriptCompile Include="park.ts" />
     <TypeScriptCompile Include="Scripts\maps\google.maps.d.ts" />
     <TypeScriptCompile Include="Scripts\tsUnit\tsUnit.ts" />
-    <TypeScriptCompile Include="tests.ts" />
+    <TypeScriptCompile Include="Tests\park_tests.ts" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -76,7 +77,8 @@
     <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
     <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
     <TypeScriptModuleKind>AMD</TypeScriptModuleKind>
-    <TypeScriptOutFile />
+    <TypeScriptOutFile>
+    </TypeScriptOutFile>
     <TypeScriptOutDir />
     <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
     <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>

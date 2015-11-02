@@ -1,15 +1,21 @@
 //model for a park with name, google coord(latlong) and facilities
-//import * as google from ("./Scripts/maps/google.maps.d");
-define(["require", "exports"], function (require, exports) {
-    var park = (function () {
+/// <reference path="./Scripts/maps/google.maps.d.ts"/>
+var park;
+(function (park) {
+    var Park = (function () {
         /* Constructors */
-        function park(name, latlong, hasFacilities) {
+        function Park(name, lat, long, hasFacilities) {
             this.name = name;
-            this.latlong = latlong;
+            this.lat = lat;
+            this.long = long;
             this.hasFacilities = hasFacilities;
         }
-        return park;
+        /* Helpers */
+        Park.prototype.toString = function () {
+            return this.name + " " + this.lat.toString() + " " + this.long.toString() + " " + String(this.hasFacilities);
+        };
+        return Park;
     })();
-    exports.park = park;
-});
+    park.Park = Park;
+})(park || (park = {}));
 //# sourceMappingURL=park.js.map

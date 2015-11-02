@@ -1,10 +1,11 @@
-/* tsUnit (c) Copyright 2012-2015 Steve Fenton, licensed under Apache 2.0 https://github.com/Steve-Fenton/tsUnit */
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-define(["require", "exports"], function (require, exports) {
+/* tsUnit (c) Copyright 2012-2015 Steve Fenton, licensed under Apache 2.0 https://github.com/Steve-Fenton/tsUnit */
+var tsUnit;
+(function (tsUnit) {
     var Test = (function () {
         function Test() {
             var testModules = [];
@@ -174,7 +175,7 @@ define(["require", "exports"], function (require, exports) {
         };
         return Test;
     })();
-    exports.Test = Test;
+    tsUnit.Test = Test;
     var TestRunLimiterRunAll = (function () {
         function TestRunLimiterRunAll() {
         }
@@ -446,7 +447,7 @@ define(["require", "exports"], function (require, exports) {
         };
         return TestContext;
     })();
-    exports.TestContext = TestContext;
+    tsUnit.TestContext = TestContext;
     var TestClass = (function (_super) {
         __extends(TestClass, _super);
         function TestClass() {
@@ -457,7 +458,7 @@ define(["require", "exports"], function (require, exports) {
         };
         return TestClass;
     })(TestContext);
-    exports.TestClass = TestClass;
+    tsUnit.TestClass = TestClass;
     var FakeFactory = (function () {
         function FakeFactory() {
         }
@@ -496,7 +497,7 @@ define(["require", "exports"], function (require, exports) {
         };
         return FakeFactory;
     })();
-    exports.FakeFactory = FakeFactory;
+    tsUnit.FakeFactory = FakeFactory;
     var TestDefintion = (function () {
         function TestDefintion(testClass, name) {
             this.testClass = testClass;
@@ -513,6 +514,6 @@ define(["require", "exports"], function (require, exports) {
         }
         return TestDescription;
     })();
-    exports.TestDescription = TestDescription;
-});
+    tsUnit.TestDescription = TestDescription;
+})(tsUnit || (tsUnit = {}));
 //# sourceMappingURL=tsUnit.js.map

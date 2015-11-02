@@ -1,3 +1,5 @@
+/// <reference path="./park.ts"/>
+/// <reference path="./Scripts/maps/google.maps.d.ts"/>
 var Greeter = (function () {
     function Greeter(element) {
         this.element = element;
@@ -16,8 +18,15 @@ var Greeter = (function () {
     return Greeter;
 })();
 window.onload = function () {
+    /* Mock Application */
     var el = document.getElementById('content');
     var greeter = new Greeter(el);
     greeter.start();
+    /* Park Instantiation Test*/
+    var el2 = document.getElementById('park_tests');
+    //instance of park
+    var park01 = new park.Park("Unknown Park", 11.0, 12.0, true);
+    el2.innerHTML = park01.toString();
+    /* */
 };
 //# sourceMappingURL=app.js.map
