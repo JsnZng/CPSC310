@@ -74,12 +74,6 @@ class Greeter {
 }
 
 window.onload = () => {
-    /* Mock Application */
-    var el = document.getElementById('content');
-    var greeter = new Greeter(el);
-    greeter.start();
-
-
     /* Map */
 
 
@@ -87,12 +81,6 @@ window.onload = () => {
     var mapCanvas = document.getElementById("map");
 
     var googleMap = new Map(mapCanvas);
-
-    //Add Marker
-    var parkToBeMarked01 = new park.Park("Stanley Park", 49.3000, -123.1400, false);
-    var parkToBeMarked02 = new park.Park("untitled", 49.2500, -123.2100, false);
-    googleMap.addParkMarker(parkToBeMarked01);
-    googleMap.addParkMarker(parkToBeMarked02);
 
     //Add Search Box
     var elSearchBox = <HTMLInputElement>document.getElementById("search_box");
@@ -121,22 +109,4 @@ window.onload = () => {
     );
 
     
-
-
-
-    /* Park Instantiation Test*/
-    var el2 = document.getElementById('park_tests');
-    
-    //instance of park
-    var park01 = new park.Park(
-        "Unknown Park",
-        11.0,
-        12.0,
-        true
-    );
-
-    el2.innerHTML = park01.toString();
-
-
-    /* */
 };

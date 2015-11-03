@@ -5,17 +5,23 @@
 body {
     font-family: Roboto;
     height:100%;
+    background-image:url("http://www.bipnational.net/Portals/_default/Skins/Minimalist-BioBlue-Gradient/backgrounds/SkyBlue/10_image.jpg");
 }
 
 span {
     font-style: italic;
 }
 
+h1, h2{
+    color:#fff;
+    text-shadow:2px 1px 1px #000;
+}
+
 input{
   margin-top: 10px;
   margin-left:10px;
   border: 1px solid transparent;
-  border-radius: 2px 0 0 2px;
+  border-radius: 2px 2px 2px 2px;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   height: 32px;
@@ -33,5 +39,6 @@ input{
 
 #map{
     height:100%;
+    border-radius: 5px 0 0 2px;
 }
 

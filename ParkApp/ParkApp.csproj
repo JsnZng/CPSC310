@@ -29,6 +29,7 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="app.ts" />
+    <TypeScriptCompile Include="xml_parser.ts" />
     <TypeScriptCompile Include="park.ts" />
     <TypeScriptCompile Include="Scripts\maps\google.maps.d.ts" />
     <TypeScriptCompile Include="Scripts\tsUnit\tsUnit.ts" />
