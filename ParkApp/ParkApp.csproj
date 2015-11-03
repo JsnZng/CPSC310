@@ -23,7 +23,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app.css" />
-    <Content Include="tests.html" />
+    <Content Include="Tests\tests.html" />
     <Content Include="index.html" />
     <Content Include="web.config" />
   </ItemGroup>
