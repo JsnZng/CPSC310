@@ -1,6 +1,34 @@
 ﻿/// <reference path="./park.ts"/>
 /// <reference path="./Scripts/maps/google.maps.d.ts"/>
 
+class Map {
+
+    public name: string;
+    private map: any;
+    private options: any;
+
+    constructor(mapDiv: Element) {
+        this.name = "GoogleMap";
+        this.options = {
+            zoom: 10,
+            MapTypeId: google.maps.MapTypeId.ROADMAP,
+            center: new google.maps.LatLng(49.2069, -122.9111)
+        };
+        this.map = new google.maps.Map(mapDiv, this.options);
+    }
+
+    addParkMarker(park: park.Park) {
+        //create marker to be added
+        var markerOptions = {
+            position: new google.maps.LatLng(park.lat, park.long),
+            icon: "https://maps.google.com/mapfiles/kml/shapes/parks_maps.png",
+            map: this.map //adds marker to map
+        };
+        var marker = new google.maps.Marker(markerOptions);
+    }
+
+}
+
 class Greeter {
     element: HTMLElement;
     span: HTMLElement;
@@ -29,6 +57,22 @@ window.onload = () => {
     var el = document.getElementById('content');
     var greeter = new Greeter(el);
     greeter.start();
+
+
+    /* Map */
+
+
+    //Display Map
+    var mapCanvas = document.getElementById("map");
+
+    var googleMap = new Map(mapCanvas);
+
+    //Add Marker
+    var parkToBeMarked01 = new park.Park("Stanley Park", 49.3000, -123.1400, false);
+    var parkToBeMarked02 = new park.Park("untitled", 49.2500, -123.2100, false);
+    googleMap.addParkMarker(parkToBeMarked01);
+    googleMap.addParkMarker(parkToBeMarked02);
+
 
 
     /* Park Instantiation Test*/
