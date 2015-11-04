@@ -13,8 +13,21 @@ router.get('/dataloader', function(req, res, next) {
 })
 
 router.get('/map', function(req, res, next) {
-	res.sendFile(path.join(__dirname + '/google-maps.html'));
+	//res.sendFile(path.join(__dirname + '/google-maps.html'));
 	//res.render('map', { title: 'Vancouver Parks' });
+	var db = req.db;
+	var collection = db.get('test2');
+	var markerlist = "";
+	collection.find({}, {}, function(e, docs) {
+		var len = docs.length;
+		for (i = 0; i < len/3; i++) {
+			//console.log(docs[i].GoogleMapDest);
+			markerlist = markerlist.concat("|");
+			markerlist = markerlist.concat(docs[i].GoogleMapDest);
+		}
+		res.render('map', {markers : markerlist});
+	})
+	//console.log(markerlist);
 })
 
 router.get('/data', function(req, res, next) {
