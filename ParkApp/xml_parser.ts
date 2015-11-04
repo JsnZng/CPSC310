@@ -1,13 +1,16 @@
 ﻿/// <reference path="./Scripts/xml2json/xml2json.ts"/>
 /// <reference path ="./Scripts/ftp/ftp.d.ts"/>
+/// <reference path ="./db.ts"/>
+
 
 import ftp = require('ftp');
+import db = require('db');
 
 module xml_parser {
 	export class xmlParser {
 
 		store(data) {
-
+			db.addParks()
 		}
 
 		parse(data) {
