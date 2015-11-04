@@ -2,8 +2,8 @@
 
 module xml_parser {
 	export class xmlParser {
-
-		parse(data) {
+		
+		public static parse(data) {
 			var jsonData = xml2json.XMLParser.parse(data);
 			var ret = ret.COVParksFacilities;
 			return ret;
