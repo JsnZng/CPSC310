@@ -8,6 +8,7 @@ function clicked(){
 	if(un.value == corun){
 		if(pw.value == corpw){
 		window.alert("Logged in as " +  un.value);
+		window.open("https://www.facebook.com/");
 
 		}else{
 			window.alert("Invalid username or password!")
