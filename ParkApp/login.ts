@@ -14,6 +14,7 @@ class Login{
 		if(un.value == username){
 		if(pw.value == password){
 		window.alert("Logged in as " +  un.value);
+		window.open("https://www.facebook.com/");
 
 		}else{
 			window.alert("Invalid username or password!")
