@@ -1,0 +1,11 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/map.css')
+    script(type="text/javascript" src="https://maps.googleapis.com/maps/api/js?    key=AIzaSyDMvMgiOHLXVDrYCADC-STyD97bWABCpXk &sensor=false &libraries=places")
+    script(src='/javascripts/map.js')
+  body
+    h1= title
+    input(id="search_box" type="text")
+    div(id="map")
