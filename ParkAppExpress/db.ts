@@ -21,7 +21,7 @@ export function addUser(username, password) {
 		users_collection.insert({
 			Username: username,
 			Password: password,
-			VisitedParks: []
+			VisitedParks: {}
 		}, function(err, x) {
 			if (err) { console.error(err); return;}
 			console.log(x);

@@ -5,6 +5,25 @@ var mongodb = require('mongodb');
 var server = new mongodb.Server('localhost', 27017, { auto_reconnect: true });
 var db = new mongodb.Db('mydb', server, { w: 1 });
 db.open(function () { });
+function addUser(username, password) {
+    db.collection('users_test', function (err, users_collection) {
+        users_collection.insert({
+            Username: username,
+            Password: password,
+            VisitedParks: {}
+        }, function (err, x) {
+            if (err) {
+                console.error(err);
+                return;
+            }
+            console.log(x);
+        });
+    });
+}
+exports.addUser = addUser;
+function getUser() {
+}
+exports.getUser = getUser;
 function addParks(parks) {
     db.collection('parks_test2', function (err, parks_collection) {
         if (err) {

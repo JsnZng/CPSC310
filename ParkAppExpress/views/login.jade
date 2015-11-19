@@ -1,0 +1,14 @@
+extends layout
+
+block content
+	center
+		h1= title
+		form#formLogin(name = "userLogin", method = "post", action = "/userLogin")
+			input#inputUsername(type = "text", placeholder = "Username", name = "Username")
+			br
+			input#inputPassword(type = "password", placeholder = "Password", name = "Password")
+			br
+			button#btnSubmit(type = "submit") login
+		h2= "New User? Sign Up Now!"
+		form#formSignup(name = "userSignup", method = "get", action = "/userSignup")
+			button#btnSubmit(type = "submit") signup

@@ -1,11 +1,7 @@
 /// <reference path="../../DefinitelyTyped/googlemaps/google.maps.d.ts"/>
-/// <reference path="../../DefinitelyTyped/jquery/jquery.d.ts"/>
-
 ///<reference path='../../DefinitelyTyped/node/node.d.ts'/>
 ///<reference path='../../DefinitelyTyped/express/express.d.ts'/> 
 ///<reference path='../../DefinitelyTyped/mongodb/mongodb.d.ts' />
-
-import mongodb = require('mongodb');
 
 class Map {
 	public name: string;
@@ -53,35 +49,3 @@ class Map {
         this.locationMarker = new google.maps.Marker(markerOptions);
     }
 }
-
-window.onload = () => {
-	var mapCanvas = document.getElementById("map");
-
-    var googleMap = new Map(mapCanvas);
-
-    //Add Search Box
-    var elSearchBox = <HTMLInputElement>document.getElementById("search_box");
-
-    //var searchBoxOptions = googleMap.getMapBounds();
-    var searchBox = new google.maps.places.SearchBox(
-        elSearchBox
-        //searchBoxOptions
-    );
-
-    //attach SearchBox to Map
-    googleMap.setInput(elSearchBox);
-
-    searchBox.addListener(
-        'places_changed',
-        () => {
-            var places = searchBox.getPlaces()
-
-            if (places.length == 0)
-                return;
-
-            places.forEach((place) => {
-                googleMap.addLocationMarker(place.geometry.location);
-            });
-        }
-    );
-};

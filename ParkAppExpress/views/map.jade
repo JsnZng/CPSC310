@@ -1,11 +1,39 @@
 doctype html
 html
-  head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/map.css')
-    script(type="text/javascript" src="https://maps.googleapis.com/maps/api/js?    key=AIzaSyDMvMgiOHLXVDrYCADC-STyD97bWABCpXk &sensor=false &libraries=places")
-    script(src='/javascripts/map.js')
-  body
-    h1= title
-    input(id="search_box" type="text")
-    div(id="map")
+	head
+		title= title
+		link(rel='stylesheet', href='/stylesheets/map.css')
+		script(type="text/javascript" src="https://maps.googleapis.com/maps/api/js?    key=AIzaSyDMvMgiOHLXVDrYCADC-STyD97bWABCpXk &sensor=false &libraries=places")
+		script(src='/javascripts/map.js')
+	body
+		script.
+			window.onload = () => {
+				var mapCanvas = document.getElementById("map");
+				var googleMap = new Map(mapCanvas);
+				//googleMap.addParkMarker({lat: 49.2069, lng: -122.9111});
+				var parks = JSON.parse('!{parks}');
+				for(var i = 0; i < parks.length; i++) {
+					var latitude = parseFloat(parks[i].GoogleMapDest.split(",")[0]);
+					console.log(latitude);
+					var longitude = parseFloat(parks[i].GoogleMapDest.split(",")[1]);
+					console.log(longitude);
+					googleMap.addParkMarker({lat: latitude, lng: longitude});
+				}
+				var elSearchBox = document.getElementById("search_box");
+				var searchBox = new google.maps.places.SearchBox(elSearchBox);
+				googleMap.setInput(elSearchBox);
+				searchBox.addListener(
+					'places_changed',
+					() => {
+						var places = searchBox.getPlaces()
+						if (places.length == 0)
+							return;
+						places.forEach((place) => {
+							googleMap.addLocationMarker(place.geometry.location);
+						});
+					}
+				);
+			};
+		h1= title
+		input(id="search_box" type="text")
+		div(id="map")
