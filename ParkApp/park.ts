@@ -5,10 +5,11 @@ module park {
 
         /* Fields */
 
-        name: string; // name of the park
-        long: number //latlong location of park
-        lat: number;
-        hasFacilities: boolean; //does the park have facilities?
+        private _name: string; // name of the park
+        private _long: number //latlong location of park
+        private _lat: number;
+        private _hasFacilities: boolean; //does the park have facilities?
+
 
 
         /* Constructors */
@@ -24,6 +25,23 @@ module park {
         toString() {
             return this.name + " " + this.lat.toString() + " " + this.long.toString() + " " + String(this.hasFacilities);
         }
+                
+        get name(): string{
+            return this._name;
+        }
+        
+        get long(): number{
+            return this._long;
+        }
+        
+        get lat(): number{
+            return this._lat;
+        }
+        
+        get hasFacilities(): boolean{
+            return this._hasFacilities;
+        }
+        
 
     }
 }
