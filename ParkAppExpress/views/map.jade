@@ -10,7 +10,6 @@ html
 			window.onload = () => {
 				var mapCanvas = document.getElementById("map");
 				var googleMap = new Map(mapCanvas);
-				//googleMap.addParkMarker({lat: 49.2069, lng: -122.9111});
 				var parks = JSON.parse('!{parks}');
 				for(var i = 0; i < parks.length; i++) {
 					var latitude = parseFloat(parks[i].GoogleMapDest.split(",")[0]);

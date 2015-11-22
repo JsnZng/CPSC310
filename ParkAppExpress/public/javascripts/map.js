@@ -6,9 +6,9 @@ var Map = (function () {
     function Map(mapDiv) {
         this.name = "GoogleMap";
         this.options = {
-            zoom: 10,
+            zoom: 12,
             MapTypeId: google.maps.MapTypeId.ROADMAP,
-            center: new google.maps.LatLng(49.2069, -122.9111)
+            center: new google.maps.LatLng(49.2569, -123.1000)
         };
         this.map = new google.maps.Map(mapDiv, this.options);
     }

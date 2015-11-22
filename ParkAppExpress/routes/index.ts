@@ -13,46 +13,66 @@ router.get('/', function(req, res, next) {
 
 router.get('/data', function(req, res, next) {
 	db.getParks(function(parks) {
-		console.log(parks);
-		res.render('data', { "data": parks });
+		//console.log(parks);
+		//res.render('data', { "data": parks });
+		res.json(parks);
 	});
 });
+
+router.get('/users', function(req, res, next) {
+	db.getUsers(function(users) {
+		res.json(users);
+	})
+})
 
 router.get('/dataloader', function(req, res, next) {
 	res.render('dataloader', { title: 'Data Loader' });
 });
 
+router.post('/dataloader', function(req, res) {
+	dl.getData(req.body.url);
+});
+
 router.get('/map', function(req, res, next) {
-	db.getParks(function(parks) {
-		res.render('map', { 
-			title: 'Vancouver Parks Map', 
-			//"parks": parks.map(function(park) {
-			//	var jsonString = '{ "lat" : ' + park.GoogleMapDest.split(",")[0] + ',"lng" : ' + park.GoogleMapDest.split(",")[1] +' }';
-			//	return JSON.parse(jsonString);
-			//})
-			"parks": JSON.stringify(parks)
+	if (req.session && req.session.user){
+		db.getParks(function(parks) {
+			res.render('map', {
+				title: 'Vancouver Parks Map',
+				"parks": JSON.stringify(parks)
+			});
 		});
-	});
-}); 
+	} else {
+		res.redirect('/login');
+	}
+});
 
 router.get('/login', function(req, res, next) {
 	res.render('login', { title: 'User Login' });
 });
 
-router.post('/userLogin', function (req, res, next) {
-
-});
-
-router.get('/userSignup', function(req, res, next) {
-	res.redirect('/signup');
+router.post('/login', function(req, res, next) {
+	db.getUser(req.body.username, function(user) {
+		if (!user) {
+			res.redirect('/login');
+		} else {
+			if (req.body.password != user.Password) {
+				res.redirect('/login');
+			} else {
+				req.session.user = user;
+				res.redirect('/map');
+			}
+		}
+	})
 });
 
 router.get('/signup', function(req, res, next) {
 	res.render('signup', { title: 'User Sign Up' });
-})
+});
 
-router.post('/loaddata', function(req, res) {
-	dl.getData(req.body.url);
+router.post('/signup', function(req, res, next) {
+	db.addUser(req.body.username, req.body.password, function() {
+		res.redirect('/login');
+	});
 });
 
 module.exports = router;

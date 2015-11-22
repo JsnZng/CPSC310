@@ -5,23 +5,54 @@ var mongodb = require('mongodb');
 var server = new mongodb.Server('localhost', 27017, { auto_reconnect: true });
 var db = new mongodb.Db('mydb', server, { w: 1 });
 db.open(function () { });
-function addUser(username, password) {
+function getUsers(callback) {
+    db.collection('users_test', function (err, users_collection) {
+        if (err) {
+            console.error(err);
+            return;
+        }
+        users_collection.find({}, {}).toArray(function (err, users) {
+            if (err) {
+                console.error(err);
+                return;
+            }
+            callback(users);
+        });
+    });
+}
+exports.getUsers = getUsers;
+function addUser(username, password, callback) {
     db.collection('users_test', function (err, users_collection) {
         users_collection.insert({
-            Username: username,
-            Password: password,
-            VisitedParks: {}
+            'Username': username,
+            'Password': password,
+            'IsAdmin': false,
+            'VisitedParks': {}
         }, function (err, x) {
             if (err) {
                 console.error(err);
                 return;
             }
             console.log(x);
+            callback();
         });
     });
 }
 exports.addUser = addUser;
-function getUser() {
+function getUser(username, callback) {
+    db.collection('users_test', function (err, users_collection) {
+        if (err) {
+            console.error(err);
+            return;
+        }
+        users_collection.findOne({ 'Username': username }, function (err, user) {
+            if (err) {
+                console.error(err);
+                return;
+            }
+            callback(user);
+        });
+    });
 }
 exports.getUser = getUser;
 function addParks(parks) {

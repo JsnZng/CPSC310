@@ -2,6 +2,6 @@ extends layout
 
 block content
 	h1= title
-	form#formLoadData(name = "loaddata", method = "post", action = "/loaddata")
+	form#formLoadData(name = "Data Loader", method = "post", action = "/dataloader")
 		input#inputURL(type = "text", placeholder = "url", name = "url")
 		button#btnSubmit(type = "submit") submit

@@ -16,21 +16,39 @@ export interface User {
 
 }
 
-export function addUser(username, password) {
+export function getUsers(callback) {
 	db.collection('users_test', function(err, users_collection) {
-		users_collection.insert({
-			Username: username,
-			Password: password,
-			VisitedParks: {}
-		}, function(err, x) {
-			if (err) { console.error(err); return;}
-			console.log(x);
-		})
-	})
+		if (err) { console.error(err); return; }
+		users_collection.find({}, {}).toArray(function(err, users) {
+			if (err) { console.error(err); return; }
+			callback(users);
+		});
+	});
 }
 
-export function getUser() {
+export function addUser(username, password, callback) {
+	db.collection('users_test', function(err, users_collection) {
+		users_collection.insert({
+			'Username': username,
+			'Password': password,
+			'IsAdmin': false,
+			'VisitedParks': {}
+		}, function(err, x) {
+			if (err) { console.error(err); return; }
+			console.log(x);
+			callback();
+		});
+	});
+}
 
+export function getUser(username, callback) {
+	db.collection('users_test', function(err, users_collection) {
+		if (err) { console.error(err); return }
+		users_collection.findOne({ 'Username': username }, function(err, user) {
+			if (err) { console.error(err); return; }
+			callback(user);
+		});
+	});
 }
 
 export function addParks(parks) {
