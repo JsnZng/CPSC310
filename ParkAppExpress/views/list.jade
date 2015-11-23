@@ -7,17 +7,19 @@ html
 		script(type="text/javascript" src="https://maps.googleapis.com/maps/api/js?    key=AIzaSyDMvMgiOHLXVDrYCADC-STyD97bWABCpXk &sensor=false &libraries=places")
 		script(src='/javascripts/map.js')
 	body
-		div.body
-			div.header
-				div.title
-					h1= title
-				div.switch
-					form(action='/map', method='get')
-						button(class='btn btn-lg btn-primary btn-block', type='submit') Map
-			//div.filter
-				h2 filter TODO
-			each park in parks
-				div.park-block
-					center
-						h2 #{park.Name}
+		div.user
+			h3(align= 'right') Welcome! 
+				a(href='profile') #{user}
+		div.header
+			div.title
+				h1= title
+			div.switch
+				form(action='/map', method='get')
+					button(class='btn btn-lg btn-primary btn-block', type='submit') Map
+		//div.filter
+			h2 filter TODO
+		each park in parks
+			div.park-block
+				center
+					h2 #{park.Name}
 

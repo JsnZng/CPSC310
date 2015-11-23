@@ -50,7 +50,8 @@ router.get('/map', function(req, res, next) {
 		db.getParks(function(parks) {
 			res.render('map', {
 				title: 'Vancouver Parks Map',
-				"parks": JSON.stringify(parks)
+				"parks": JSON.stringify(parks),
+				"user": req.session.user.Username
 			});
 		});
 	} else {
@@ -63,7 +64,8 @@ router.get('/list', function(req, res, next) {
 		db.getParks(function(parks) {
 			res.render('list', {
 				title: 'Vancouver Parks List',
-				"parks": parks
+				"parks": parks,
+				"user" : req.session.user.Username
 			});
 		});
 	} else {
@@ -72,16 +74,16 @@ router.get('/list', function(req, res, next) {
 });
 
 router.get('/login', function(req, res, next) {
-	res.render('login', { title: 'User Login' });
+	res.render('login', { title: 'User Login'});
 });
 
 router.post('/login', function(req, res, next) {
 	db.getUser(req.body.username, function(user) {
 		if (!user) {
-			res.redirect('/login');
+			res.render('login', { title: 'User Login', 'message': 'Incorrect username/password combination' });
 		} else {
 			if (req.body.password != user.Password) {
-				res.redirect('/login');
+				res.render('login', { title: 'User Login', 'message': 'Incorrect Username/Password Combination' });
 			} else {
 				req.session.user = user;
 				res.redirect('/map');
@@ -95,9 +97,15 @@ router.get('/signup', function(req, res, next) {
 });
 
 router.post('/signup', function(req, res, next) {
-	db.addUser(req.body.username, req.body.password, function() {
-		res.redirect('/login');
-	});
+	db.getUser(req.body.username, function(user) {
+		if (!user) {
+			db.addUser(req.body.username, req.body.password, function() {
+				res.redirect('/login');
+			});
+		} else {
+			res.render('signup', { title: 'User Sign Up', "message": 'Username Already Exists' });
+		}
+	})
 });
 
 router.get('/profile', function(req, res, next) {

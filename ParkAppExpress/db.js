@@ -6,7 +6,7 @@ var server = new mongodb.Server('localhost', 27017, { auto_reconnect: true });
 var db = new mongodb.Db('mydb', server, { w: 1 });
 db.open(function () { });
 function getUsers(callback) {
-    db.collection('users_test', function (err, users_collection) {
+    db.collection('users_test2', function (err, users_collection) {
         if (err) {
             console.error(err);
             return;
@@ -22,12 +22,13 @@ function getUsers(callback) {
 }
 exports.getUsers = getUsers;
 function addUser(username, password, callback) {
-    db.collection('users_test', function (err, users_collection) {
+    db.collection('users_test2', function (err, users_collection) {
         users_collection.insert({
             'Username': username,
             'Password': password,
             'IsAdmin': false,
-            'VisitedParks': {}
+            'VisitedParks': [],
+            'RatedParks': []
         }, function (err, x) {
             if (err) {
                 console.error(err);
@@ -40,7 +41,7 @@ function addUser(username, password, callback) {
 }
 exports.addUser = addUser;
 function getUser(username, callback) {
-    db.collection('users_test', function (err, users_collection) {
+    db.collection('users_test2', function (err, users_collection) {
         if (err) {
             console.error(err);
             return;
@@ -56,14 +57,14 @@ function getUser(username, callback) {
 }
 exports.getUser = getUser;
 function addParks(parks) {
-    db.collection('parks_test3', function (err, parks_collection) {
+    db.collection('parks_test4', function (err, parks_collection) {
         if (err) {
             console.error(err);
             return;
         }
         for (var i = 0; i < parks.length; i++) {
-            parks[i].Comments = {};
-            parks[i].Ratings = {};
+            parks[i].Comments = [];
+            parks[i].Ratings = [];
         }
         parks_collection.insert(parks, function (err, x) {
             if (err) {
@@ -77,7 +78,7 @@ function addParks(parks) {
 }
 exports.addParks = addParks;
 function getParks(callback) {
-    db.collection('parks_test3', function (err, parks_collection) {
+    db.collection('parks_test4', function (err, parks_collection) {
         if (err) {
             console.error(err);
             return;

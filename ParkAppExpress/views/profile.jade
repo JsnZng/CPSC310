@@ -5,12 +5,15 @@ html
 		link(rel='stylesheet', href='/stylesheets/pass.css')
 		link(rel='stylesheet', href='http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css')
 body
+	h3  
+		a(href='/map') Vancouver Parks
 	div.container
 		div.row
 			div.col-sm-6.col-md-4.col-md-offset-4
 				#user
-					h1.text-center.login-title Welcome #{user.Username}. Check your details below:
+					h1.text-center.login-title My Footprint
 						div.signup-wall
 							ul.user-details
-								li Username ---> #{user.Username}
+								each park in user.VisitedParks
+									li #{park.Name}
 						a(href='/logout', class='text-center new-account') Log Out

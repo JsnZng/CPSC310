@@ -63,6 +63,10 @@ input{
 .header{
     margin-bottom: 20px;
 }
+.user{
+    padding: 3px 0px 5px 0px;
+    background-color: #9370DB;
+}
 .title{
     
 }
