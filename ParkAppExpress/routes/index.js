@@ -68,7 +68,7 @@ router.get('/list', function (req, res, next) {
         res.redirect('/login');
     }
 });
-router.post('/list/filter', function (req, res, next) {
+router.post('/list', function (req, res, next) {
     if (req.session && req.session.user) {
         var filter = req.body.filter;
         db.getParks(function (parks) {
