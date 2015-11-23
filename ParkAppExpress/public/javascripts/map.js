@@ -12,14 +12,26 @@ var Map = (function () {
         };
         this.map = new google.maps.Map(mapDiv, this.options);
     }
-    Map.prototype.addParkMarker = function (latLng) {
+    Map.prototype.addParkMarker = function (park) {
         //create marker to be added
+        var latitude = parseFloat(park.GoogleMapDest.split(",")[0]);
+        var longitude = parseFloat(park.GoogleMapDest.split(",")[1]);
+        var latLng = new google.maps.LatLng(latitude, longitude);
         var markerOptions = {
             position: latLng,
             icon: "https://maps.google.com/mapfiles/kml/shapes/parks_maps.png",
             map: this.map //adds marker to map
         };
         var marker = new google.maps.Marker(markerOptions);
+        var contentString = '<h2>' + park.Name + '</h2>'
+            + '<p>' + park.StreetNumber + '</p>'
+            + '<p>' + park.StreetName + '</p>';
+        var infowindow = new google.maps.InfoWindow({
+            content: contentString
+        });
+        marker.addListener('click', function () {
+            infowindow.open(this.map, marker);
+        });
     };
     Map.prototype.setInput = function (input) {
         this.map.controls[google.maps.ControlPosition.LEFT_TOP].push(input);

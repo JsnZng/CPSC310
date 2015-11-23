@@ -1,0 +1,23 @@
+doctype html
+html
+	head
+		title= title
+		link(rel='stylesheet', href='http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css')
+		link(rel='stylesheet', href='/stylesheets/map.css')
+		script(type="text/javascript" src="https://maps.googleapis.com/maps/api/js?    key=AIzaSyDMvMgiOHLXVDrYCADC-STyD97bWABCpXk &sensor=false &libraries=places")
+		script(src='/javascripts/map.js')
+	body
+		div.body
+			div.header
+				div.title
+					h1= title
+				div.switch
+					form(action='/map', method='get')
+						button(class='btn btn-lg btn-primary btn-block', type='submit') Map
+			//div.filter
+				h2 filter TODO
+			each park in parks
+				div.park-block
+					center
+						h2 #{park.Name}
+

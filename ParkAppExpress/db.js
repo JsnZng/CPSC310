@@ -56,10 +56,14 @@ function getUser(username, callback) {
 }
 exports.getUser = getUser;
 function addParks(parks) {
-    db.collection('parks_test2', function (err, parks_collection) {
+    db.collection('parks_test3', function (err, parks_collection) {
         if (err) {
             console.error(err);
             return;
+        }
+        for (var i = 0; i < parks.length; i++) {
+            parks[i].Comments = {};
+            parks[i].Ratings = {};
         }
         parks_collection.insert(parks, function (err, x) {
             if (err) {
@@ -67,12 +71,13 @@ function addParks(parks) {
                 return;
             }
             console.log(x);
+            console.log('Parks Successfully Added');
         });
     });
 }
 exports.addParks = addParks;
 function getParks(callback) {
-    db.collection('parks_test2', function (err, parks_collection) {
+    db.collection('parks_test3', function (err, parks_collection) {
         if (err) {
             console.error(err);
             return;

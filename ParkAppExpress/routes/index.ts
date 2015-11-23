@@ -8,25 +8,37 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/', function(req, res, next) {
-	res.render('index', { title: 'Express' });
+	res.redirect('/map');
 });
 
 router.get('/data', function(req, res, next) {
-	db.getParks(function(parks) {
-		//console.log(parks);
-		//res.render('data', { "data": parks });
-		res.json(parks);
-	});
+	if (req.session && req.session.user && req.session.user.IsAdmin) {
+		db.getParks(function(parks) {
+			//console.log(parks);
+			//res.render('data', { "data": parks });
+			res.json(parks);
+		});
+	} else { 
+		res.redirect('/login');
+	}
 });
 
 router.get('/users', function(req, res, next) {
-	db.getUsers(function(users) {
-		res.json(users);
-	})
+	if (req.session && req.session.user && req.session.user.IsAdmin) {
+		db.getUsers(function(users) {
+			res.json(users);
+		});
+	} else {
+		res.redirect('/login');
+	}
 })
 
 router.get('/dataloader', function(req, res, next) {
-	res.render('dataloader', { title: 'Data Loader' });
+	if (req.session && req.session.user && req.session.user.IsAdmin) {
+		res.render('dataloader', { title: 'Data Loader' });
+	} else {
+		res.redirect('/login');
+	}
 });
 
 router.post('/dataloader', function(req, res) {
@@ -39,6 +51,19 @@ router.get('/map', function(req, res, next) {
 			res.render('map', {
 				title: 'Vancouver Parks Map',
 				"parks": JSON.stringify(parks)
+			});
+		});
+	} else {
+		res.redirect('/login');
+	}
+});
+
+router.get('/list', function(req, res, next) {
+	if (req.session && req.session.user) {
+		db.getParks(function(parks) {
+			res.render('list', {
+				title: 'Vancouver Parks List',
+				"parks": parks
 			});
 		});
 	} else {
@@ -73,6 +98,15 @@ router.post('/signup', function(req, res, next) {
 	db.addUser(req.body.username, req.body.password, function() {
 		res.redirect('/login');
 	});
+});
+
+router.get('/profile', function(req, res, next) {
+	res.render('profile', {"user" : req.session.user});
+});
+
+router.get('/logout', function(req, res, next) {
+	req.session.destroy();	
+	res.redirect('/login');
 });
 
 module.exports = router;

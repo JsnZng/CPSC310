@@ -2,21 +2,18 @@ doctype html
 html
 	head
 		title= title
+		link(rel='stylesheet', href='http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css')
 		link(rel='stylesheet', href='/stylesheets/map.css')
 		script(type="text/javascript" src="https://maps.googleapis.com/maps/api/js?    key=AIzaSyDMvMgiOHLXVDrYCADC-STyD97bWABCpXk &sensor=false &libraries=places")
 		script(src='/javascripts/map.js')
 	body
 		script.
 			window.onload = () => {
-				var mapCanvas = document.getElementById("map");
+				var mapCanvas = document.getElementById('map');
 				var googleMap = new Map(mapCanvas);
 				var parks = JSON.parse('!{parks}');
 				for(var i = 0; i < parks.length; i++) {
-					var latitude = parseFloat(parks[i].GoogleMapDest.split(",")[0]);
-					console.log(latitude);
-					var longitude = parseFloat(parks[i].GoogleMapDest.split(",")[1]);
-					console.log(longitude);
-					googleMap.addParkMarker({lat: latitude, lng: longitude});
+					googleMap.addParkMarker(parks[i]);
 				}
 				var elSearchBox = document.getElementById("search_box");
 				var searchBox = new google.maps.places.SearchBox(elSearchBox);
@@ -33,6 +30,11 @@ html
 					}
 				);
 			};
-		h1= title
-		input(id="search_box" type="text")
+		div.header
+			div.title
+				h1= title
+			div.switch
+				form(action='/list', method='get')
+					button(class='btn btn-lg btn-primary btn-block', type='submit') List
 		div(id="map")
+		input(id="search_box" type="text")
