@@ -68,6 +68,48 @@ router.get('/list', function (req, res, next) {
         res.redirect('/login');
     }
 });
+router.post('/list/filter', function (req, res, next) {
+    if (req.session && req.session.user) {
+        var filter = req.body.filter;
+        db.getParks(function (parks) {
+            ///////////////////////////////////// Filter /////////////////////////////////////
+            var filteredParks = [];
+            for (var i = 0; i < parks.length; i++) {
+                var park = parks[i];
+                if (filter == "") {
+                    filteredParks = parks;
+                }
+                else {
+                    if (filter.toUpperCase() == "washroom".toUpperCase()) {
+                        if (park.Facilities.Washroom.Location) {
+                            filteredParks[filteredParks.length] = park;
+                        }
+                    }
+                    else {
+                        if (park.Facilities.Facility) {
+                            for (var j = 0; j < park.Facilities.Facility.length; j++) {
+                                var type = park.Facilities.Facility[j].FacilityType.toUpperCase();
+                                if (type.indexOf(filter.toUpperCase()) != -1) {
+                                    filteredParks[filteredParks.length] = park;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            /////////////////////////////////////////////////////////////////////////////////////
+            res.render('list', {
+                title: 'Vancouver Parks List',
+                "parks": filteredParks,
+                "user": req.session.user.Username
+            });
+        });
+    }
+    else {
+        res.redirect('/login');
+    }
+});
 router.get('/login', function (req, res, next) {
     res.render('login', { title: 'User Login' });
 });
