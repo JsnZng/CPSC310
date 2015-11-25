@@ -1,0 +1,18 @@
+doctype html
+html
+	head
+		title= title
+		link(rel='stylesheet', href='http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css')
+		link(rel='stylesheet', href='/stylesheets/map.css')
+		script(type="text/javascript" src="https://maps.googleapis.com/maps/api/js?    key=AIzaSyDMvMgiOHLXVDrYCADC-STyD97bWABCpXk &sensor=false &libraries=places")
+		script(src='/javascripts/map.js')
+	body
+		div.user
+			h3(align= 'right') Welcome! 
+				a(href='profile') #{user} &nbsp &nbsp &nbsp
+		div.header
+			h1 #{park.Name}
+		div.block
+			li
+				h2 
+

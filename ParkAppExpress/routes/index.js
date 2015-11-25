@@ -148,6 +148,7 @@ router.post('/list', function (req, res, next) {
         res.redirect('/login');
     }
 });
+
 router.get('/login', function (req, res, next) {
     res.render('login', { title: 'User Login' });
 });
@@ -172,13 +173,18 @@ router.get('/signup', function (req, res, next) {
 });
 router.post('/signup', function (req, res, next) {
     db.getUser(req.body.username, function (user) {
-        if (!user) {
-            db.addUser(req.body.username, req.body.password, function () {
-                res.redirect('/login');
-            });
+        if (req.body.password != req.body.confirm_password) {
+            res.render('signup', { title: 'User Sign Up', "message": 'Input Password is not Consistent with Comfirm Password' });
         }
         else {
-            res.render('signup', { title: 'User Sign Up', "message": 'Username Already Exists' });
+            if (!user) {
+                db.addUser(req.body.username, req.body.password, function () {
+                    res.redirect('/login');
+                });
+            }
+            else {
+                res.render('signup', { title: 'User Sign Up', "message": 'Username Already Exists' });
+            }
         }
     });
 });

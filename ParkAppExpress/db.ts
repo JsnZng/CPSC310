@@ -44,15 +44,6 @@ export function getUser(username, callback) {
 	});
 }
 
-export function addRatedPark() {
-
-}
-
-export function addComment(park, CommentString) {
-	db.collection('parks_test4', function() {
-
-	}); 
-}
 
 export function addParks(parks) {
 	db.collection('parks_test4', function(err, parks_collection) {
@@ -77,4 +68,14 @@ export function getParks(callback) {
 			callback(parks);
 		});
 	})
+}
+
+export function getPark(id, callback){
+	db.collection('parks_test4', function(err, parks_collection) {
+		if (err) { console.error(err); return;}
+		parks_collection.findOne({ 'ID': id }, function(err, park) {
+			if (err) { console.error(err); return; }
+			callback(park);
+		});
+	});
 }
