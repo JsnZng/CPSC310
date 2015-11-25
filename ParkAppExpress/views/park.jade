@@ -22,7 +22,7 @@ html
 					h2 Facilities: TODO
 			each comment in park.Comments
 				div.comment-header
-						p #{comment.By}
+						p(align="right") #{comment.By} &nbsp &nbsp 
 				div.comment
 					p #{comment.CommentString}
 			div.comment-box
