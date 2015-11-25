@@ -27,7 +27,7 @@ export function getData(url) {
 	});
 }
 
-function parseData(data) {
+export function parseData(data) {
 	var parser = require('xml2json');
 	var jsonData = parser.toJson(data);
 	console.log('data_parsed');

@@ -1,0 +1,15 @@
+extends layout
+
+block content
+	h1= title
+	div
+		h2 Test XML String
+		p #{test}
+	div
+		h2 Expected Result
+		p #{expectedResult}
+	div
+		h2 Result
+		p #{result}
+	form#formLoadData(name = "Test", method = "post", action = "/parsertest")
+		button#btnSubmit(type = "submit") submit

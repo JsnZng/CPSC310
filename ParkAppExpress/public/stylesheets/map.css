@@ -43,6 +43,10 @@ input{
 #map{
     height:80%;
     border-radius: 5px 0 0 2px;
+    width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+
 }
 .park-block{
     margin-top: 10px;
@@ -62,6 +66,9 @@ input{
 }
 .header{
     margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 1000px;
 }
 .user{
     padding: 3px 0px 5px 0px;
@@ -69,10 +76,10 @@ input{
     margin-bottom: 100px;
 }
 .title{
-    
+    float: left;
 }
 .switch{
-    
+    float: right;
     width: 150px;
     height: 40px;
     margin-top: 18px;

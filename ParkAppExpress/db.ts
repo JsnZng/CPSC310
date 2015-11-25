@@ -8,14 +8,6 @@ var server = new mongodb.Server('localhost', 27017, { auto_reconnect: true })
 var db = new mongodb.Db('mydb', server, { w: 1 });
 db.open(function() { });
 
-export interface Park {
-	
-}
-
-export interface User {
-
-}
-
 export function getUsers(callback) {
 	db.collection('users_test2', function(err, users_collection) {
 		if (err) { console.error(err); return; }
@@ -50,6 +42,16 @@ export function getUser(username, callback) {
 			callback(user);
 		});
 	});
+}
+
+export function addRatedPark() {
+
+}
+
+export function addComment(park, CommentString) {
+	db.collection('parks_test4', function() {
+
+	}); 
 }
 
 export function addParks(parks) {

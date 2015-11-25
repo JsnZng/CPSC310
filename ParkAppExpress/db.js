@@ -56,6 +56,14 @@ function getUser(username, callback) {
     });
 }
 exports.getUser = getUser;
+function addRatedPark() {
+}
+exports.addRatedPark = addRatedPark;
+function addComment(park, CommentString) {
+    db.collection('parks_test4', function () {
+    });
+}
+exports.addComment = addComment;
 function addParks(parks) {
     db.collection('parks_test4', function (err, parks_collection) {
         if (err) {

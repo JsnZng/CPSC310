@@ -33,6 +33,7 @@ function parseData(data) {
     //console.log(result);
     return result;
 }
+exports.parseData = parseData;
 function storeData(parsedData) {
     db.addParks(parsedData);
 }

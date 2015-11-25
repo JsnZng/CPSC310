@@ -40,6 +40,44 @@ router.get('/dataloader', function (req, res, next) {
 router.post('/dataloader', function (req, res) {
     dl.getData(req.body.url);
 });
+router.get('/parsertest', function (req, res, next) {
+    if (req.session && req.session.user && req.session.user.IsAdmin) {
+        var test = "<COVParksFacilities>"
+            + "<Park ID='1'><Name>Arbutus Village Park</Name><StreetNumber>4202</StreetNumber><StreetName>Valley Drive</StreetName><GoogleMapDest>49.249783,-123.155250</GoogleMapDest></Park>"
+            + "<Park ID='2'><Name>Carnarvon Park</Name><StreetNumber>2995</StreetNumber><StreetName>W 19th Avenue</StreetName><GoogleMapDest>49.256555,-123.171406</GoogleMapDest></Park>"
+            + "</COVParksFacilities>";
+        var expectedResult = [{ "ID": "1", "Name": "Arbutus Village Park", "StreetNumber": "4202", "StreetName": "Valley Drive", "GoogleMapDest": "49.249783,-123.155250" },
+            { "ID": "2", "Name": "Carnarvon Park", "StreetNumber": "2995", "StreetName": "W 19th Avenue", "GoogleMapDest": "49.256555,-123.171406" }];
+        res.render('parsertest', {
+            title: 'Parser Test',
+            "test": test,
+            "expectedResult": JSON.stringify(expectedResult)
+        });
+    }
+    else {
+        res.redirect('/login');
+    }
+});
+router.post('/parsertest', function (req, res, next) {
+    if (req.session && req.session.user && req.session.user.IsAdmin) {
+        var test = "<COVParksFacilities>"
+            + "<Park ID='1'><Name>Arbutus Village Park</Name><StreetNumber>4202</StreetNumber><StreetName>Valley Drive</StreetName><GoogleMapDest>49.249783,-123.155250</GoogleMapDest></Park>"
+            + "<Park ID='2'><Name>Carnarvon Park</Name><StreetNumber>2995</StreetNumber><StreetName>W 19th Avenue</StreetName><GoogleMapDest>49.256555,-123.171406</GoogleMapDest></Park>"
+            + "</COVParksFacilities>";
+        var expectedResult = [{ "ID": "1", "Name": "Arbutus Village Park", "StreetNumber": "4202", "StreetName": "Valley Drive", "GoogleMapDest": "49.249783,-123.155250" },
+            { "ID": "2", "Name": "Carnarvon Park", "StreetNumber": "2995", "StreetName": "W 19th Avenue", "GoogleMapDest": "49.256555,-123.171406" }];
+        var result = dl.parseData(test);
+        res.render('parsertest', {
+            title: 'Parser Test',
+            "test": test,
+            "expectedResult": JSON.stringify(expectedResult),
+            "result": JSON.stringify(result)
+        });
+    }
+    else {
+        res.redirect('/login');
+    }
+});
 router.get('/map', function (req, res, next) {
     if (req.session && req.session.user) {
         db.getParks(function (parks) {

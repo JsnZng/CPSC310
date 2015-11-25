@@ -7,7 +7,7 @@ html
 	body
 		div.user
 			h3(align= 'right') Welcome! 
-				a(href='profile') #{user}
+				a(href='profile') #{user} &nbsp &nbsp &nbsp
 		div.header
 			div.title
 				h1= title
@@ -15,10 +15,11 @@ html
 				form(action='/map', method='get')
 					button(class='btn btn-lg btn-primary btn-block', type='submit') Map
 		div.body
-			div(align = 'center').filter
-				form(action='/list', method='POST')
-					input(type='text', name='filter', placeholder='Find Parks by Facility', autofocus)
-					button(class='btn btn-lg btn-primary btn-block', type='submit') Submit
+			center
+				div(align = 'center').filter
+					form(action='/list', method='POST')
+						input(type='text', name='filter', placeholder='Find Parks by Facility', autofocus)
+						button(class='btn btn-lg btn-primary btn-block', type='submit') Submit
 			div.content-block
 				each park in parks
 					div.park-block
