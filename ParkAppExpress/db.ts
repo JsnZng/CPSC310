@@ -87,13 +87,25 @@ export function addComment(username, parkid, comment) {
 		parks_collection.update({ 'ID': parkid }, {
 			$push : {
 				Comments: {
-					"CommentString" : comment,
-					"By" : username
+					CommentString : comment,
+					By : username
 				}
 			}
 		});
 		parks_collection.findOne({ 'ID': parkid }, function(err, park) {
 			console.log(park);
 		})
+	});
+}
+
+export function MarkAsVisited(username, parkname, parkid) {
+	console.log('Fired MarkAsVisited()');
+	db.collection('users_test2', function(err, users_collection) {
+		if (err) { console.error(err); return }
+		users_collection.update({'Username' : username}, {
+			$push : {
+				VisitedParks: { ParkName : parkname, ID : parkid }
+			}
+		});
 	});
 }

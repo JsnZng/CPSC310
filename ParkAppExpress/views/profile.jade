@@ -10,10 +10,11 @@ body
 	div.container
 		div.row
 			div.col-sm-6.col-md-4.col-md-offset-4
-				#user
+
 					h1.text-center.login-title My Footprint
 						div.signup-wall
-							ul.user-details
-								each park in user.VisitedParks
-									li #{park.Name}
+							each park in user.VisitedParks
+								li 
+									h2 #{park.ParkName}
 						a(href='/logout', class='text-center new-account') Log Out
+				

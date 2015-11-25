@@ -23,7 +23,7 @@ var Map = (function () {
             map: this.map //adds marker to map
         };
         var marker = new google.maps.Marker(markerOptions);
-        var contentString = '<h2>' + park.Name + '</h2>'
+        var contentString = '<h2><a href="../park/' + park.ID + '">' + park.Name + '</a></h2>'
             + '<p>' + park.StreetNumber + '</p>'
             + '<p>' + park.StreetName + '</p>';
         var infowindow = new google.maps.InfoWindow({

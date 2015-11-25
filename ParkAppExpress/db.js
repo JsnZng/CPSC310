@@ -119,8 +119,8 @@ function addComment(username, parkid, comment) {
         parks_collection.update({ 'ID': parkid }, {
             $push: {
                 Comments: {
-                    "CommentString": comment,
-                    "By": username
+                    CommentString: comment,
+                    By: username
                 }
             }
         });
@@ -130,3 +130,18 @@ function addComment(username, parkid, comment) {
     });
 }
 exports.addComment = addComment;
+function MarkAsVisited(username, parkname, parkid) {
+    console.log('Fired MarkAsVisited()');
+    db.collection('users_test2', function (err, users_collection) {
+        if (err) {
+            console.error(err);
+            return;
+        }
+        users_collection.update({ 'Username': username }, {
+            $push: {
+                VisitedParks: { ParkName: parkname, ID: parkid }
+            }
+        });
+    });
+}
+exports.MarkAsVisited = MarkAsVisited;

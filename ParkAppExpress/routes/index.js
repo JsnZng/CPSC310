@@ -81,6 +81,11 @@ router.post('/parsertest', function (req, res, next) {
 router.get('/map', function (req, res, next) {
     if (req.session && req.session.user) {
         db.getParks(function (parks) {
+            // fix a mysterious bug
+            for (var i = 0; i < parks.length; i++) {
+                parks[i].Comments = [];
+                parks[i].Ratings = [];
+            }
             res.render('map', {
                 title: 'Vancouver Parks Map',
                 "parks": JSON.stringify(parks),
@@ -95,9 +100,11 @@ router.get('/map', function (req, res, next) {
 router.get('/list', function (req, res, next) {
     if (req.session && req.session.user) {
         db.getParks(function (parks) {
+            var parksString = JSON.stringify(parks);
+            var parksObject = JSON.parse(parksString);
             res.render('list', {
                 title: 'Vancouver Parks List',
-                "parks": parks,
+                "parks": parksObject,
                 "user": req.session.user.Username
             });
         });
@@ -188,7 +195,14 @@ router.post('/signup', function (req, res, next) {
     });
 });
 router.get('/profile', function (req, res, next) {
-    res.render('profile', { "user": req.session.user });
+    if (req.session && req.session.user) {
+        db.getUser(req.session.user.Username, function (user) {
+            res.render('profile', { "user": user });
+        });
+    }
+    else {
+        res.redirect('/login');
+    }
 });
 router.get('/logout', function (req, res, next) {
     req.session.destroy();
@@ -197,10 +211,19 @@ router.get('/logout', function (req, res, next) {
 router.get('/park/:id', function (req, res, next) {
     if (req.session && req.session.user) {
         db.getPark(req.params.id, function (park) {
-            console.error("could not find park");
-            res.render('park', {
-                'park': park,
-                'id': req.params.id
+            var isVisited = false;
+            db.getUser(req.session.user.Username, function (user) {
+                for (var i = 0; i < user.VisitedParks.length; i++) {
+                    if (user.VisitedParks[i].ID == req.params.id) {
+                        isVisited = true;
+                    }
+                }
+                res.render('park', {
+                    'park': park,
+                    'id': req.params.id,
+                    "user": req.session.user.Username,
+                    'isVisited': isVisited
+                });
             });
         });
     }
@@ -208,10 +231,26 @@ router.get('/park/:id', function (req, res, next) {
         res.redirect('/login');
     }
 });
-router.post('/park/:id', function (req, res, next) {
-    console.log('Fired PUT');
+router.post('/park/:id/comment', function (req, res, next) {
+    console.log('Fired comment');
     if (req.session && req.session.user) {
         db.addComment(req.session.user.Username, req.params.id, req.body.comment);
+        res.redirect('/park/' + req.params.id);
+    }
+    else {
+        res.redirect('/login');
+    }
+});
+router.post('/park/:id/mark', function (req, res, next) {
+    console.log('Fired mark');
+    if (req.session && req.session.user) {
+        db.getUser(req.session.user.Username, function (user) {
+            db.getPark(req.params.id, function (park) {
+                console.log("Park To Mark" + park);
+                db.MarkAsVisited(req.session.user.Username, park.Name, park.ID);
+                req.session.user = user;
+            });
+        });
         res.redirect('/park/' + req.params.id);
     }
     else {

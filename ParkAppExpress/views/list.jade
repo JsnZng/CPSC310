@@ -24,6 +24,6 @@ html
 				each park in parks
 					div.park-block
 						center
-							h2.
-								#{park.Name} &nbsp @ &nbsp #{park.StreetNumber}, #{park.StreetName}
+							h2
+								a(href="../park/" + park.ID) #{park.Name} &nbsp @ &nbsp #{park.StreetNumber}, #{park.StreetName}
 						

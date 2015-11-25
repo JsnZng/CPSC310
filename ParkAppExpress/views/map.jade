@@ -11,7 +11,8 @@ html
 			window.onload = () => {
 				var mapCanvas = document.getElementById('map');
 				var googleMap = new Map(mapCanvas);
-				var parks = JSON.parse('!{parks}');
+				var parksString = '!{parks}';
+				var parks = JSON.parse(parksString);
 				for(var i = 0; i < parks.length; i++) {
 					googleMap.addParkMarker(parks[i]);
 				}
