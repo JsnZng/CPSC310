@@ -1,0 +1,18 @@
+doctype html
+html
+	head
+		title= title
+		link(rel='stylesheet', href='/stylesheets/list.css')
+		link(rel='stylesheet', href='http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css')
+body
+	div
+		p(id = "name")
+		p(id = "address")
+		p(id = "has_facilities")
+	div
+			a
+		form
+			input(type='text', name='comment', placeholder='Your thoughts on this park?', autofocus)
+			button(class='btn btn-lg btn-primary btn-block', type='submit') Submit
+		
+		
