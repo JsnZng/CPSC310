@@ -195,4 +195,18 @@ router.get('/logout', function (req, res, next) {
     req.session.destroy();
     res.redirect('/login');
 });
+router.get('/park/:id', function (req, res, next) {
+    if (req.session && req.session.user) {
+        db.getPark(req.params.id, function (park) {
+            console.log(req.param.id);
+            console.error("could not find park");
+            res.render('park', {
+                'park': park
+            });
+        });
+    }
+    else {
+        res.redirect('/login');
+    }
+});
 module.exports = router;
