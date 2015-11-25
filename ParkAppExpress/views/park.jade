@@ -3,7 +3,7 @@ html
 	head
 		title= title
 		link(rel='stylesheet', href='http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css')
-		link(rel='stylesheet', href='/stylesheets/map.css')
+		link(rel='stylesheet', href='/stylesheets/parkdisplay.css')
 		script(type="text/javascript" src="https://maps.googleapis.com/maps/api/js?    key=AIzaSyDMvMgiOHLXVDrYCADC-STyD97bWABCpXk &sensor=false &libraries=places")
 		script(src='/javascripts/map.js')
 	body
@@ -12,20 +12,17 @@ html
 				a(href='profile') #{user} &nbsp &nbsp &nbsp
 		div.header
 			h1 #{park.Name}
+		div.comments
+			ul
+				each comment in park.Comments
+					ul(class="comment").
+						#{comment}
+		div.form
+			form
+				input(type="text", name='filter', placeholder='What are your thoughts?', autofocus)
+				button(class='btn btn-lg btn-primary btn-block', type='submit') Submit
 		div.block
 			li
 				h2 
 
-		link(rel='stylesheet', href='/stylesheets/list.css')
-		link(rel='stylesheet', href='http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css')
-body
-	div
-		p(id = "name")
-		p(id = "address")
-		p(id = "has_facilities")
-	div
-			a
-		form
-			input(type='text', name='comment', placeholder='Your thoughts on this park?', autofocus)
-			button(class='btn btn-lg btn-primary btn-block', type='submit') Submit
 
