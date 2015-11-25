@@ -78,3 +78,13 @@ export function getParks(callback) {
 		});
 	})
 }
+
+export function getPark(id, callback) {
+    db.collection('park_tests4', function (err, users_collection) {
+        if (err) { console.error(err); return }
+        users_collection.findOne({ 'ID': id }, function (err, park) {
+            if (err) { console.error(err); return; }
+            callback(park);
+        });
+    });
+}

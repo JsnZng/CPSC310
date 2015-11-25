@@ -101,3 +101,19 @@ function getParks(callback) {
     });
 }
 exports.getParks = getParks;
+function getPark(id, callback) {
+    db.collection('park_tests4', function (err, users_collection) {
+        if (err) {
+            console.error(err);
+            return;
+        }
+        users_collection.findOne({ 'ID': id }, function (err, park) {
+            if (err) {
+                console.error(err);
+                return;
+            }
+            callback(park);
+        });
+    });
+}
+exports.getPark = getPark;
