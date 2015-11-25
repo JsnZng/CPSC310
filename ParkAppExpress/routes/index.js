@@ -148,7 +148,6 @@ router.post('/list', function (req, res, next) {
         res.redirect('/login');
     }
 });
-
 router.get('/login', function (req, res, next) {
     res.render('login', { title: 'User Login' });
 });
@@ -198,12 +197,22 @@ router.get('/logout', function (req, res, next) {
 router.get('/park/:id', function (req, res, next) {
     if (req.session && req.session.user) {
         db.getPark(req.params.id, function (park) {
-            console.log(req.param.id);
             console.error("could not find park");
             res.render('park', {
-                'park': park
+                'park': park,
+                'id': req.params.id
             });
         });
+    }
+    else {
+        res.redirect('/login');
+    }
+});
+router.post('/park/:id', function (req, res, next) {
+    console.log('Fired PUT');
+    if (req.session && req.session.user) {
+        db.addComment(req.session.user.Username, req.params.id, req.body.comment);
+        res.redirect('/park/' + req.params.id);
     }
     else {
         res.redirect('/login');

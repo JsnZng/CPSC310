@@ -79,3 +79,21 @@ export function getPark(id, callback){
 		});
 	});
 }
+
+export function addComment(username, parkid, comment) {
+	console.log('Fired addComment()');
+	db.collection('parks_test4', function(err, parks_collection) {
+		if (err) { console.error(err); return; }
+		parks_collection.update({ 'ID': parkid }, {
+			$push : {
+				Comments: {
+					"CommentString" : comment,
+					"By" : username
+				}
+			}
+		});
+		parks_collection.findOne({ 'ID': parkid }, function(err, park) {
+			console.log(park);
+		})
+	});
+}
